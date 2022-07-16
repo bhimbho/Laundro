@@ -38,4 +38,4 @@ jobs:
               MYSQL_DATABASE: test_laundro
           ports:
               - 3306
-          options: --health-cmd="mysqladmin ping" --health-intervals=10s --health-timeout=5s --health-retries=3
+          # options: --health-cmd="mysqladmin ping" --health-intervals=10s --health-timeout=5s --health-retries=3
