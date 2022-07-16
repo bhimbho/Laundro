@@ -22,8 +22,8 @@ return new class extends Migration
             $table->foreignUuid('quantity');
             $table->string('status');
             $table->boolean('express');
+            $table->dateTime('expected_collection_date')->nullable();
             $table->timestamps();
-            $table->timestamp('expected_collection_date');
 
         });
     }
