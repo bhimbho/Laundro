@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('title');
-            $table->foreignUuid('price_id')->constrained();
+            $table->foreignUuid('authorised_by')->constrained('administrators')->onDelete('cascade');
             $table->timestamps();
         });
     }

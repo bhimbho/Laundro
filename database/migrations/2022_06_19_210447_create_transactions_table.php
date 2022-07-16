@@ -20,7 +20,9 @@ return new class extends Migration
             $table->string('customer_name')->nullable();
             $table->string('customer_phone')->nullable();
             $table->string('customer_email')->nullable();
-            $table->string('payment_type')->default(); // cash, debit_card, trasnfer, etc.
+            $table->string('payment_type')->default('cash'); // cash, debit_card, trasnfer, etc.
+            $table->foreignUuid('authorised_by')->constrained('administrators')->onDelete('cascade');
+            $table->foreignUuid('delivery_method_id')->constrained('delivery_methods'); // delivery, pickup, etc.
             $table->timestamps();
         });
     }
