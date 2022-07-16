@@ -20,8 +20,10 @@ return new class extends Migration
             $table->foreignUuid('attire_type_id')->constrained();
             $table->foreignUuid('service_id')->constrained();
             $table->foreignUuid('quantity');
+            $table->string('status');
+            $table->boolean('express');
+            $table->dateTime('expected_collection_date')->nullable();
             $table->timestamps();
-            $table->timestamp('expected_collection_date');
 
         });
     }

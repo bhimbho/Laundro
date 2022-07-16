@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('attire_types', function (Blueprint $table) {
+        Schema::create('service_costs', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('title');
-            $table->string('attire_image');
+            $table->foreignUuid('service_id')->constrained();
+            $table->foreignUuid('attire_type_id')->constrained();
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attire_types');
+        Schema::dropIfExists('service_costs');
     }
 };
