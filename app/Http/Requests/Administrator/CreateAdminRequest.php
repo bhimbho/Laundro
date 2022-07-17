@@ -25,13 +25,20 @@ class CreateAdminRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $checks = [
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:administrators',
             'email' => 'required|string|email|max:255|unique:administrators',
-            'password' => 'required|string|min:8|confirmed',
             'role' => [new Enum(RoleEnum::class)],
+            'password' => 'required|string|min:8|confirmed',
         ];
+
+        if ($this->isMethod('patch')) {
+            $checks['password'] = 'required|string|min:8';
+            // $checks['role'] = 'required|string|min:8';
+        }
+        
+        return $checks;
     }
 }
