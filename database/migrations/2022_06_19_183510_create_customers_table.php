@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('othername')->nullable();
             $table->string('email')->unique();
             $table->string('phone_number')->unique();
+            $table->string('password');
             $table->timestamps();
         });
     }

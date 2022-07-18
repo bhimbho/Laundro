@@ -25,7 +25,6 @@ class AdminAuthController extends Controller
         if (!auth()->attempt($credentials)) {
             return $this->makeJsonResponse(['error' => 'Invalid Login Credentials'], 401);
         }
-
         return $this->makeJsonResponse([
             'token' => $this->generateToken($this->getloggedInAdmin()),
             'data' => $this->getloggedInAdmin(),
