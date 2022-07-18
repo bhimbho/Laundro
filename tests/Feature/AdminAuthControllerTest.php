@@ -26,7 +26,9 @@ class AdminAuthControllerTest extends TestCase
     // }
 
     public function test_admin_can_register_new_user() {
-        $this->actingAs(Administrator::create(
+        
+        $this->withoutExceptionHandling();
+        $response = $this->post('/api/admin/register',
             [
                 'firstname' => 'John',
                 'lastname' => 'Doe',
@@ -36,14 +38,9 @@ class AdminAuthControllerTest extends TestCase
                 'password_confirmation' => 'password',
                 'role' => 'super-admin',
             ]
-            ));
-        $this->withoutExceptionHandling();
-        $response = $this->post('/api/admin/register', [
            
-        ]);
-        
+        );
         $response->assertStatus(201);
-        $this->assertInstanceOf(Administrator::class, $response->getOriginalContent()['admin']);
-        $this->assertArrayHasKey('token', $response->getOriginalContent());
+        $this->assertInstanceOf(Administrator::class, $response->getOriginalContent()['data']);
     }
 }
