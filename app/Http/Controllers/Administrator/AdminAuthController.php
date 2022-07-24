@@ -7,16 +7,28 @@ use App\Http\Requests\Administrator\CreateAdminRequest;
 use App\Traits\QuickResponseTrait;
 use App\Models\Administrator;
 use App\Traits\Tokenizer;
+use Illuminate\Http\Request;
+use App\Traits\Administrator\AdministratorQuery;
 
 class AdminAuthController extends Controller
 {
-    use QuickResponseTrait, Tokenizer;
+    use QuickResponseTrait, Tokenizer, AdministratorQuery;
 
-    public function login() {
-        $admin = Administrator::firstOrFail();
+    /**
+     * Admin Login
+     *
+     * @return json
+     */
+    public function login(Request $request) {
+        $credentials = $request->only(['email', 'password']);
+
+        if (!auth()->attempt($credentials)) {
+            return $this->makeJsonResponse(['error' => 'Invalid Login Credentials'], 401);
+        }
         return $this->makeJsonResponse([
-            'token' => $this->generateToken($admin),
-            'admin' => $admin,
+            'token' => $this->generateToken($this->getloggedInAdmin()),
+            'data' => $this->getloggedInAdmin(),
+            'message' => 'Login Successful'
         ], 201);
     }
 
@@ -25,18 +37,24 @@ class AdminAuthController extends Controller
      */
     public function register(CreateAdminRequest $request) {
         $validated = $request->validated();
+        $validated['password'] = bcrypt($validated['password']);
         $admin = Administrator::create($validated);
 
         return $this->makeJsonResponse([
-            'token' => $this->generateToken($admin),
-            'admin' => $admin,
+            'data' => $admin,
+            'message' => 'Account Created successfully',
         ], 201);
     }
 
-    public function read() {
-        $admin = Administrator::firstOrFail();
-        return $this->makeJsonResponse([
-            'admin' => $admin,
-        ], 200);
+    public function forget_password() {
+
+    }
+
+    public function reset_password() {
+
+    }
+
+    public function logout() {
+
     }
 }

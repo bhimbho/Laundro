@@ -2,6 +2,7 @@
 namespace App\Traits;
 
 trait QuickResponseTrait {
+
     use Tokenizer;
     /**
      * @return json
@@ -16,6 +17,20 @@ trait QuickResponseTrait {
             $status,
             $headers,
             $options
+        );
+    }
+
+    public function makeSuccessResponse () {
+        return response()->json(
+            ['message' => 'Operation Successful'],
+            201
+        );
+    }
+
+    public function makeDeletedResponse () {
+        return response()->json(
+            ['message' => 'Deletion Successful'],
+            201
         );
     }
 }

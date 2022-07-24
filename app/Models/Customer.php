@@ -4,9 +4,9 @@ namespace App\Models;
 
 use App\Traits\UUID;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Customer extends Model
+class Customer extends Authenticatable
 {
     use HasFactory, UUID;
 
@@ -15,4 +15,5 @@ class Customer extends Model
     public $incrementing = false;
     
     protected $fillable = ['firstname'];
+    protected $guard = ['users'];
 }

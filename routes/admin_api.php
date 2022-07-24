@@ -3,6 +3,7 @@
 use App\Http\Controllers\Administrator;
 use Illuminate\Support\Facades\Route;
 
+
 Route::post('login', [Administrator\AdminAuthController::class, 'login']);
 Route::post('register', [Administrator\AdminAuthController::class, 'register']);
 

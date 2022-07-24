@@ -13,11 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('attire_types', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('title');
-            $table->string('attire_image');
-            $table->timestamps();
+        Schema::table('administrators', function (Blueprint $table) {
             $table->softDeletes();
         });
     }
@@ -29,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attire_types');
+        Schema::table('administrators', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };
