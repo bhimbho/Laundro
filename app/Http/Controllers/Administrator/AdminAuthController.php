@@ -46,24 +46,15 @@ class AdminAuthController extends Controller
         ], 201);
     }
 
-    /**
-     * @param Request $request
-     * @return json
-     */
-    public function updateAdminRecord(Request $request, Administrator $admin) {
-        return response()->json($request);
-        $administrator = $this->getLoggedInAdmin()->update($request->validated());
-        return $this->makeJsonResponse([
-            'data' => $administrator,
-            'message' => 'Account Updated successfully',
-        ], 201);
+    public function forget_password() {
+
     }
 
-    public function deleteAdminProfile(Administrator $administrator) {
-        // return response()->json($administrator);
-        $administrator->delete();
-        return $this->makeJsonResponse([
-            'message' => 'Account Deleted successfully',
-        ], 201);
+    public function reset_password() {
+
+    }
+
+    public function logout() {
+
     }
 }

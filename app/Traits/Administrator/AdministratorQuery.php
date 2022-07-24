@@ -10,6 +10,6 @@ trait AdministratorQuery {
      * @return object
      */
     public function getloggedInAdmin() {
-        return request()->guard('users')->user();
+        return request()->user();
     }
 }

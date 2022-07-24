@@ -3,6 +3,9 @@
 namespace App\Http\Requests\Administrator;
 
 use App\Http\Enum\RoleEnum;
+use App\Models\Administrator;
+use App\Rules\CheckExistMoreThanOnce;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
 
@@ -25,6 +28,8 @@ class CreateAdminRequest extends FormRequest
      */
     public function rules()
     {
+        $email = $this->email;
+        $username = $this->username;
         $checks = [
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
@@ -35,8 +40,10 @@ class CreateAdminRequest extends FormRequest
         ];
 
         if ($this->isMethod('patch')) {
-            $checks['password'] = 'required|string|min:8';
-            // $checks['role'] = 'required|string|min:8';
+            $checks['password'] = 'nullable|string|min:8|';
+            $checks['username'] = ['required', 'max:255', new CheckExistMoreThanOnce];
+            // dd($checks['username']);
+            $checks['email'] = ['required','string','email','max:255', new CheckExistMoreThanOnce];
         }
         
         return $checks;

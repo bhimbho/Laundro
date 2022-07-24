@@ -15,6 +15,8 @@ class Administrator extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable, UUID, SoftDeletes;
 
     protected $primaryKey = 'id';
+    protected $keyType = 'string';
+// public $incrementing = false;
     /**
      * The attributes that are mass assignable.
      *
@@ -47,4 +49,14 @@ class Administrator extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get all of the transactions for the Administrator
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class, 'authorised_by');
+    }
 }
