@@ -10,6 +10,10 @@ class Customer extends Authenticatable
 {
     use HasFactory, UUID;
 
+    protected $primaryKey = 'id';
+    protected $keyType = 'string';
+    public $incrementing = false;
+    
     protected $fillable = ['firstname'];
     protected $guard = ['users'];
 }

@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class ServiceCost extends Model
 {
     use HasFactory;
+
+    protected $primaryKey = 'id';
+    protected $keyType = 'string';
+    public $incrementing = false;
 }

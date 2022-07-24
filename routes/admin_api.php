@@ -5,8 +5,9 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::post('login', [Administrator\AdminAuthController::class, 'login']);
+Route::post('register', [Administrator\AdminAuthController::class, 'register']);
+
 Route::middleware(['auth:sanctum', 'isTopLevelAdmin'])->group(function () {
-    Route::post('register', [Administrator\AdminAuthController::class, 'register']);
     Route::patch('update_profile/{administrator}', [Administrator\AccountsManagerController::class, 'update_profile']);
     Route::delete('delete_profile/{administrator}', [Administrator\AccountsManagerController::class, 'delete_profile']);
     Route::get('list_adminstrators/{withDeleted?}', [Administrator\AccountsManagerController::class, 'list_admintrators']);

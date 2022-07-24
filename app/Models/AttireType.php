@@ -13,5 +13,7 @@ class AttireType extends Model
 
     protected $primaryKey = 'id';
     protected $keyType = 'string';
+    public $incrementing = false;
+    
     protected $fillable = ['title', 'attire_image'];
 }
