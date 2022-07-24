@@ -5,14 +5,18 @@ namespace App\Models;
 use App\Traits\UUID;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class Administrator extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, UUID;
+    use HasApiTokens, HasFactory, Notifiable, UUID, SoftDeletes;
 
+    protected $primaryKey = 'id';
+    protected $keyType = 'string';
+// public $incrementing = false;
     /**
      * The attributes that are mass assignable.
      *
@@ -45,4 +49,14 @@ class Administrator extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get all of the transactions for the Administrator
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class, 'authorised_by');
+    }
 }
