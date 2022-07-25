@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AttireRequest extends FormRequest
+class ServiceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,14 +23,15 @@ class AttireRequest extends FormRequest
      */
     public function rules()
     {
-        $check = [
-            'title' => 'required|max:150|string',
-            'attire_image' => 'image|required'
-        ];
-        
-        if ($this->isMethod('patch')) {
-            $check['attire_image'] = ['image'];
-        }
-        return $check;
+        $checks =  ['title' => 'required|string|unique:services,title'];
+
+        // if($this->isMethod('patch')) {
+        //     $checks['title'] = []
+        // }
+        return $checks; 
+           
+            // 'cost' => 'required|numeric',
+            // 'attire_type' => 'uuid|required'
+    
     }
 }

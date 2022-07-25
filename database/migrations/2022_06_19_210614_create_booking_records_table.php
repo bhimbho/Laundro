@@ -24,6 +24,7 @@ return new class extends Migration
             $table->boolean('express');
             $table->dateTime('expected_collection_date')->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
         });
     }

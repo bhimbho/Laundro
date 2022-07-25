@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('location');
             $table->foreignUuid('customer_id')->constrained();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

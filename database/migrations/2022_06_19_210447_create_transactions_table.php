@@ -24,6 +24,7 @@ return new class extends Migration
             $table->foreignUuid('authorised_by')->constrained('administrators')->onDelete('cascade');
             $table->foreignUuid('delivery_method_id')->constrained('delivery_methods'); // delivery, pickup, etc.
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

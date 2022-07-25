@@ -33,4 +33,11 @@ trait QuickResponseTrait {
             201
         );
     }
+
+    public function makeUpdatedResponse () {
+        return response()->json(
+            ['message' => 'Record Updated'],
+            201
+        );
+    }
 }

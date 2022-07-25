@@ -15,4 +15,5 @@ Route::middleware(['auth:sanctum', 'isTopLevelAdmin'])->group(function () {
     Route::get('get_admin_with_relations/{administrator}', [Administrator\AccountsManagerController::class, 'get_admin_with_relations']);
 
     Route::resource('attires',  Administrator\AttireTypeController::class);
+    Route::resource('services',  Administrator\ServiceController::class);
 });
