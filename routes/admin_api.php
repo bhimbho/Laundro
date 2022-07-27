@@ -16,4 +16,8 @@ Route::middleware(['auth:sanctum', 'isTopLevelAdmin'])->group(function () {
 
     Route::resource('attires',  Administrator\AttireTypeController::class);
     Route::resource('services',  Administrator\ServiceController::class);
+
+    Route::get('transactions', [Administrator\TransactionController::class, 'index']);
+    Route::get('transactions/{id}', [Administrator\TransactionController::class, 'show']);
+
 });
