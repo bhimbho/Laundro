@@ -14,4 +14,16 @@ class DeliveryMethod extends Model
     protected $primaryKey = 'id';
     protected $keyType = 'string';
     public $incrementing = false;
+
+    protected $fillable = ['name', 'cost'];
+
+    /**
+     * Get all of the bookings for the DeliveryMethod
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

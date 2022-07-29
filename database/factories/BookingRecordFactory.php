@@ -20,7 +20,7 @@ class BookingRecordFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->title(),
+            // 'title' => $this->faker->title(),
             'transaction_id' => $this->faker->randomElement(Transaction::all())['id'],
             'attire_type_id' => $this->faker->randomElement(AttireType::all())['id'],
             'service_id' => $this->faker->randomElement(Service::all())['id'],

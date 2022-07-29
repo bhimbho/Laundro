@@ -14,6 +14,6 @@ class DeliveryMethodSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\DeliveryMethod::factory(2)->create();
+        \App\Models\DeliveryMethod::factory(2)->create();      
     }
 }

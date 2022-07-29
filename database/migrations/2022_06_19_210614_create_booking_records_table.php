@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('booking_records', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('title'); // e.g. "Payment for service"
+            // $table->string('title'); // e.g. "Payment for service"
             $table->foreignUuid('transaction_id')->constrained();
             $table->foreignUuid('attire_type_id')->constrained();
             $table->foreignUuid('service_id')->constrained();
