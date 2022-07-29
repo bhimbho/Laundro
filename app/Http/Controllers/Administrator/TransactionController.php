@@ -1,12 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Administrator;
 
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Traits\QuickResponseTrait;
 
 class TransactionController extends Controller
 {
+    use QuickResponseTrait;
     /**
      * Display a listing of the resource.
      *
@@ -14,28 +17,10 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+       
+        return $this->makeJsonResponse([
+            'data' =>  Transaction::with('customer')->paginate(20)
+        ], 200);
     }
 
     /**
@@ -44,9 +29,13 @@ class TransactionController extends Controller
      * @param  \App\Models\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function show(Transaction $transaction)
+    public function show($transactionID)
     {
-        //
+        $transaction = Transaction::with('bookings.attireType', 'bookings.service', 'administrator', 'customer')->firstOrFail();
+
+        return $this->makeJsonResponse([
+            'data' => $transaction
+        ], 201);
     }
 
     /**

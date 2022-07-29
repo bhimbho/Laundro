@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Administrator;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AttireRequest extends FormRequest
+class DeliveryMethodRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,14 +23,15 @@ class AttireRequest extends FormRequest
      */
     public function rules()
     {
-        $check = [
-            'title' => 'required|max:150|string',
-            'attire_image' => 'image|required'
+        $checks = [
+            'name' => 'required|string',
+            'cost' => 'required|numeric'
         ];
-        
-        if ($this->isMethod('patch')) {
-            $check['attire_image'] = ['image'];
+
+        if($this->isMethod('patch')) {
+            $checks['cost'] = 'numeric';
+            $checks['name'] = 'string';
         }
-        return $check;
+        return $checks;
     }
 }

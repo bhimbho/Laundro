@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->foreignUuid('authorised_by')->constrained('administrators')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

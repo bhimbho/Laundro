@@ -17,6 +17,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('service_id')->constrained();
             $table->foreignUuid('attire_type_id')->constrained();
+            $table->double('cost');
             $table->timestamps();
         });
     }

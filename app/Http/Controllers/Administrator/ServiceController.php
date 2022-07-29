@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers\Administrator;
 
-use App\Models\AttireType;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AttireRequest;
-use App\Http\Service\AttireTypeService;
+use App\Http\Requests\ServiceRequest;
+use App\Models\Service;
+use Illuminate\Http\Request;
+use App\Http\Service\ServiceService;
 use App\Traits\QuickResponseTrait;
 
-class AttireTypeController extends Controller
+class ServiceController extends Controller
 {
     use QuickResponseTrait;
 
-    public function __construct(AttireTypeService $attireTypeService)
+    protected ServiceService $service;
+
+    public function __construct(ServiceService $service)
     {
-        $this->attireTypeService = $attireTypeService;
+        $this->service = $service;
     }
     /**
      * Display a listing of the resource.
@@ -24,7 +27,7 @@ class AttireTypeController extends Controller
     public function index()
     {
         return $this->makeJsonResponse([
-            'data' => AttireType::all()
+            'data' => Service::all()
         ], 200);
     }
 
@@ -34,24 +37,24 @@ class AttireTypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AttireRequest $request)
+    public function store(ServiceRequest $request)
     {
         $validated = $request->validated();
-        $this->attireTypeService->store($validated);
-
+        $this->service->store($validated);
+        
         return $this->makeSuccessResponse();
     }
 
     /**
-     * Display the specified attire.
+     * Display the specified resource.
      *
-     * @param  \App\Models\AttireType  $attireType
+     * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function show(AttireType $attire)
+    public function show(Service $service)
     {
         return $this->makeJsonResponse([
-            'data' => $attire
+            'data' => $service
         ], 201);
     }
 
@@ -59,25 +62,26 @@ class AttireTypeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\AttireType  $attireType
+     * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function update(AttireRequest $request, AttireType $attire)
+    public function update(ServiceRequest $request, Service $service)
     {
         $validated = $request->validated();
-        $this->attireTypeService->update($validated, $attire);       
-        return $this->makeUpdatedResponse(); 
+        $service->title = $validated['title'];
+        $service->authorised_by = $request->user()->id;
+        $service->save();
+        return $this->makeSuccessResponse();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\AttireType  $attireType
+     * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AttireType $attire)
+    public function destroy(Service $service)
     {
-        $attire->delete();
-        $this->makeDeletedResponse();
+        $service->delete();
     }
 }
