@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Administrator;
 use App\Models\AttireType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AttireRequest;
+use App\Http\Resources\AttireTypeResource;
 use App\Http\Service\AttireTypeService;
 use App\Traits\QuickResponseTrait;
 
@@ -24,7 +25,7 @@ class AttireTypeController extends Controller
     public function index()
     {
         return $this->makeJsonResponse([
-            'data' => AttireType::all()
+            'data' =>  AttireTypeResource::collection(AttireType::all())
         ], 200);
     }
 
