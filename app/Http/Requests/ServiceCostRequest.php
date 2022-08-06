@@ -25,7 +25,8 @@ class ServiceCostRequest extends FormRequest
     {
         return [
             'attire_type_id' => 'required|uuid',
-            'service_id' => 'required|uuid'
+            'service_id' => 'required|uuid',
+            'cost' => 'numeric|required'
         ];
     }
 }

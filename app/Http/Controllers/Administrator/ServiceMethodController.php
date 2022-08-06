@@ -7,11 +7,9 @@ use App\Http\Requests\ServiceMethodStoreRequest;
 use App\Http\Service\ServiceMethodService;
 use App\Models\ServiceMethod;
 use App\Traits\QuickResponseTrait;
-use Illuminate\Http\Request;
 
 class ServiceMethodController extends Controller
 {
-    use QuickResponseTrait;
 
     protected ServiceMethodService $serviceMethod;
 

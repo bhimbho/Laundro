@@ -5,11 +5,10 @@ namespace App\Http\Controllers\Administrator;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Traits\QuickResponseTrait;
 
 class TransactionController extends Controller
 {
-    use QuickResponseTrait;
+
     /**
      * Display a listing of the resource.
      *

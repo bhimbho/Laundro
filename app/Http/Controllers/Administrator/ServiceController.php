@@ -5,13 +5,11 @@ namespace App\Http\Controllers\Administrator;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ServiceRequest;
 use App\Models\Service;
-use Illuminate\Http\Request;
 use App\Http\Service\ServiceService;
-use App\Traits\QuickResponseTrait;
 
 class ServiceController extends Controller
 {
-    use QuickResponseTrait;
+
 
     protected ServiceService $service;
 

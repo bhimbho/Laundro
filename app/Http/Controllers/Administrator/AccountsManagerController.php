@@ -6,11 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Administrator\CreateAdminRequest;
 use Illuminate\Http\Request;
 use App\Models\Administrator;
-use App\Traits\QuickResponseTrait;
 
 class AccountsManagerController extends Controller
 {
-    use QuickResponseTrait;
 
     /**
     * list all administrator, if withDeleted is passed deleted admins are also retrieved

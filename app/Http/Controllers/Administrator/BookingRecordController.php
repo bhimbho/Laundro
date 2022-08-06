@@ -7,12 +7,9 @@ use App\Http\Requests\BookingStoreRequest;
 use App\Models\BookingRecord;
 use Illuminate\Http\Request;
 use App\Http\Service\BookingRecordService;
-use App\Traits\QuickResponseTrait;
 
 class BookingRecordController extends Controller
 {
-    
-    use QuickResponseTrait;
 
     private BookingRecordService $bookingRecordService;
 

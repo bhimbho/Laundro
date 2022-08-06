@@ -36,4 +36,14 @@ class ServiceCost extends Model
     {
         return $this->belongsTo(Service::class);
     }
+
+    /**
+     * Get all of the comments for the ServiceCost
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function bookings()
+    {
+        return $this->hasMany(BookingRecord::class);
+    }
 }

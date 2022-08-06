@@ -67,6 +67,7 @@ class DeliveryMethodController extends Controller
         $validated = $request->validated();
         $delivery_method->cost = $validated['cost'];
         $delivery_method->name = $validated['name'];
+        $delivery_method->name = $validated['times'];
         $delivery_method->update();
         return $this->makeUpdatedResponse();
     }
@@ -80,6 +81,6 @@ class DeliveryMethodController extends Controller
     public function destroy(DeliveryMethod $delivery_method)
     {
         $delivery_method->delete();
-        $this->makeSuccessResponse();
+        $this->makeDeletedResponse();
     }
 }

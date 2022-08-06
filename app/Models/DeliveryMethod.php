@@ -15,7 +15,7 @@ class DeliveryMethod extends Model
     protected $keyType = 'string';
     public $incrementing = false;
 
-    protected $fillable = ['name', 'cost'];
+    protected $fillable = ['name', 'cost', 'times'];
 
     /**
      * Get all of the bookings for the DeliveryMethod

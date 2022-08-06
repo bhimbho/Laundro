@@ -25,12 +25,14 @@ class DeliveryMethodRequest extends FormRequest
     {
         $checks = [
             'name' => 'required|string',
-            'cost' => 'required|numeric'
+            'cost' => 'required|numeric',
+            'times' => 'required|numeric'
         ];
 
         if($this->isMethod('patch')) {
             $checks['cost'] = 'numeric';
             $checks['name'] = 'string';
+            $checks['times'] = 'numeric';
         }
         return $checks;
     }

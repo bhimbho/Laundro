@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Administrator;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Administrator\CreateAdminRequest;
-use App\Traits\QuickResponseTrait;
 use App\Models\Administrator;
 use App\Traits\Tokenizer;
 use Illuminate\Http\Request;
@@ -12,7 +11,7 @@ use App\Traits\Administrator\AdministratorQuery;
 
 class AdminAuthController extends Controller
 {
-    use QuickResponseTrait, Tokenizer, AdministratorQuery;
+    use Tokenizer, AdministratorQuery;
 
     /**
      * Admin Login

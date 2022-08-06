@@ -3,7 +3,6 @@ namespace App\Http\Service;
 
 use App\Http\Enum\StatusEnum;
 use App\Models\BookingRecord;
-use App\Models\ServiceMethod;
 use App\Models\Transaction;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -38,28 +37,28 @@ class BookingRecordService
             $this->attireTypeService->getAttire($booking['attire_type_id'])->group
         );
         BookingRecord::create([
-        'transaction_id' => $transaction->id,
-        'status' => StatusEnum::TAGGING,
-        'attire_type_id' => $booking['attire_type_id'],
-        'service_id' =>  $booking['service_id'],
-        'quantity' => $booking['quantity'],
-        'service_method_id' => ($serviceMethod) ? $serviceMethod->id : null,
-        'expected_collection_date' => ($serviceMethod) ? Carbon::now()->addHours($serviceMethod->hours) :
-        Carbon::now()->addHours(48),
-    ]);
+            'transaction_id' => $transaction->id,
+            'status' => StatusEnum::TAGGING,
+            'attire_type_id' => $booking['attire_type_id'],
+            'service_id' =>  $booking['service_id'],
+            'quantity' => $booking['quantity'],
+            'service_method_id' => ($serviceMethod) ? $serviceMethod->id : null,
+            'expected_collection_date' => ($serviceMethod) ? Carbon::now()->addHours($serviceMethod->hours) :
+            Carbon::now()->addHours(48),
+        ]);
     }
 
     public function storeTransaction($validated)
     {
         return Transaction::create([
-        'customer_id' => isset($validated['customer_id']) ? $validated['customer_id'] : null,
-        'customer_name' => isset($validated['customer_name']) ? $validated['customer_name'] : null,
-        'customer_phone' => isset($validated['customer_phone']) ? $validated['customer_phone'] : null,
-        'customer_email' => isset($validated['customer_email']) ? $validated['customer_email'] : null,
-        'tag_no' => date('Hidmy'),
-        'payment_type' => $validated['payment_type'],
-        'authorised_by' => request()->user()->id,
-        'delivery_method_id' =>$validated['delivery_method_id'],
-    ]);
-}
+            'customer_id' => isset($validated['customer_id']) ? $validated['customer_id'] : null,
+            'customer_name' => isset($validated['customer_name']) ? $validated['customer_name'] : null,
+            'customer_phone' => isset($validated['customer_phone']) ? $validated['customer_phone'] : null,
+            'customer_email' => isset($validated['customer_email']) ? $validated['customer_email'] : null,
+            'tag_no' => date('Hidmy'),
+            'payment_type' => $validated['payment_type'],
+            'authorised_by' => request()->user()->id,
+            'delivery_method_id' =>$validated['delivery_method_id'],
+        ]);
+    }
 }

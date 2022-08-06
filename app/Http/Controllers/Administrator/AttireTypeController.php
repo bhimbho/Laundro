@@ -7,11 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AttireRequest;
 use App\Http\Resources\AttireTypeResource;
 use App\Http\Service\AttireTypeService;
-use App\Traits\QuickResponseTrait;
 
 class AttireTypeController extends Controller
 {
-    use QuickResponseTrait;
 
     public function __construct(AttireTypeService $attireTypeService)
     {
