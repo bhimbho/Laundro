@@ -23,6 +23,7 @@ class TransactionFactory extends Factory
             // 'title' => $this->faker->title(),
             'customer_id' => $this->faker->randomElement(Customer::all())['id'],
             'payment_type' => $this->faker->title(),
+            'address' => $this->faker->address(),
             'tag_no' => $this->faker->numberBetween(1000,9999).date('dmy'),
             'authorised_by' => $this->faker->randomElement(Administrator::where('role', 'super-admin')->get())['id'],
             'delivery_method_id' => $this->faker->randomElement(DeliveryMethod::all())['id'],

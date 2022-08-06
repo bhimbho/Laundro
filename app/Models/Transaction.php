@@ -15,6 +15,7 @@ class Transaction extends Model
     protected $keyType = 'string';
     public $incrementing = false;
 
+    protected $fillable = ['customer_id', 'customer_name', 'customer_phone', 'customer_email', 'tag_no', 'payment_type', 'authorised_by', 'delivery_method_id', 'address'];
     /**
      * Get all of the bookings for the Transaction
      *

@@ -2,11 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\AttireType;
-use App\Models\DeliveryMethod;
-use App\Models\Service;
-use App\Models\ServiceCost;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -25,6 +20,7 @@ class DatabaseSeeder extends Seeder
             CustomerSeeder::class,
             ServiceSeeder::class,
             ServiceCostSeeder::class,
+            ServiceMethodSeeder::class,
             DeliveryMethodSeeder::class,
             TransactionSeeder::class,
             BookingRecordSeeder::class,

@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('delivery_methods', function (Blueprint $table) {
+        Schema::create('service_methods', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name');
+            $table->enum('hours', [6,12,24]);
             $table->double('cost');
+            $table->string('group');
+            $table->foreignUuid('service_id')->nullable()->constrained();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('delivery_methods');
+        Schema::dropIfExists('service_methods');
     }
 };

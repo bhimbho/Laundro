@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\ServiceMethod;
 use Illuminate\Database\Seeder;
 
-class AdministratorSeeder extends Seeder
+class ServiceMethodSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,6 @@ class AdministratorSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Administrator::factory(10)->create();
+        ServiceMethod::factory(10)->create();
     }
 }

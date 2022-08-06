@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignUuid('service_id')->constrained();
             $table->foreignUuid('attire_type_id')->constrained();
             $table->double('cost');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

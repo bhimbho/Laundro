@@ -15,6 +15,8 @@ class BookingRecord extends Model
     protected $keyType = 'string';
     public $incrementing = false;
 
+    protected $fillable = ['transaction_id', 'attire_type_id', 'service_id', 'quantity', 'status', 'service_method_id', 'expected_collection_date'];
+
     /**
      * Get the user associated with the BookingRecord
      *

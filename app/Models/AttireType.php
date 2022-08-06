@@ -15,5 +15,5 @@ class AttireType extends Model
     protected $keyType = 'string';
     public $incrementing = false;
     
-    protected $fillable = ['title', 'attire_image'];
+    protected $fillable = ['title', 'attire_image', 'group'];
 }

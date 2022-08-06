@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignUuid('service_id')->constrained();
             $table->foreignUuid('quantity');
             $table->string('status');
-            $table->boolean('express');
+            $table->foreignUuid('service_method_id')->nullable()->constrained(); // delivery, pickup, etc.
             $table->dateTime('expected_collection_date')->nullable();
             $table->timestamps();
             $table->softDeletes();

@@ -3,11 +3,23 @@
 namespace App\Http\Controllers\Administrator;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BookingStoreRequest;
 use App\Models\BookingRecord;
 use Illuminate\Http\Request;
+use App\Http\Service\BookingRecordService;
+use App\Traits\QuickResponseTrait;
 
 class BookingRecordController extends Controller
 {
+    
+    use QuickResponseTrait;
+
+    private BookingRecordService $bookingRecordService;
+
+    public function __construct(BookingRecordService $bookingRecordService)
+    {
+        $this->bookingRecordService = $bookingRecordService;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -24,9 +36,15 @@ class BookingRecordController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BookingStoreRequest $request)
     {
-        //
+        $validated = $request->validated();
+        try {
+            $this->bookingRecordService->process_booking($validated);
+        } catch (\Throwable $th) {
+            return $this->makeFailedResponse('Record Cannot be created');
+        }
+        return $this->makeSuccessResponse();
     }
 
     /**
@@ -71,6 +89,6 @@ class BookingRecordController extends Controller
      */
     public function destroy(BookingRecord $bookingRecord)
     {
-        //
+        return $bookingRecord->forceDelete();
     }
 }

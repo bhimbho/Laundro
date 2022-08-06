@@ -19,6 +19,7 @@ class AttireTypeFactory extends Factory
         return [
             'title' => $this->faker->name(),
             'attire_image' => $this->faker->image(public_path('storage/attires'), 400, 300,null, false),
+            'group' => $this->faker->randomElement(['kiddies-wears', 'normal-wear', 'large-wears', 'xxl-wear']),
         ];
     }
 }

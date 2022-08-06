@@ -47,4 +47,11 @@ trait QuickResponseTrait {
             201
         );
     }
+
+    public function makeFailedResponse ($text) {
+        return response()->json(
+            ['message' => $text],
+            404
+        );
+    }
 }

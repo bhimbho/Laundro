@@ -2,12 +2,14 @@
 
 namespace Database\Factories;
 
+use App\Models\AttireType;
+use App\Models\Service;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class DeliveryMethodFactory extends Factory
+class ServiceMethodFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,9 +19,10 @@ class DeliveryMethodFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->title(),
+            'hours' => $this->faker->randomElement(['6','12','24']),
             'cost' => $this->faker->numberBetween(1500,2000),
-            'times' => $this->faker->numberBetween(1,3),
+            'group' => $this->faker->randomElement(['kiddies-wears', 'normal-wear', 'large-wears', 'xxl-wear']),
+            'service_id' => $this->faker->randomElement(Service::all())['id'],
         ];
     }
 }

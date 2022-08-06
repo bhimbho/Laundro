@@ -32,4 +32,8 @@ class AttireTypeService {
         $attire->title = $validated['title'];
         $attire->save();
     }
+
+    public function getAttire($attire) {
+        return AttireType::find($attire);
+    }
 }

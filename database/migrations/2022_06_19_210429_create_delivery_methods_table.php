@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('attire_types', function (Blueprint $table) {
+        Schema::create('delivery_methods', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('title');
-            $table->string('attire_image');
-            $table->string('group');
-            $table->timestamps();
+            $table->string('name');
+            $table->integer('times')->default(1);
+            $table->double('cost');
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attire_types');
+        Schema::dropIfExists('delivery_methods');
     }
 };
