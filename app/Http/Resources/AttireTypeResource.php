@@ -19,6 +19,7 @@ class AttireTypeResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'attire_image' => asset('storage/' .$this->attire_image),
+            'group' =>  $this->group,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'delete_at' => $this->delete_at,
