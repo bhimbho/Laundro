@@ -27,7 +27,7 @@ Route::middleware(['auth:sanctum', 'isTopLevelAdmin'])->group(function () {
     Route::post('remove-booking', [Administrator\BookingRecordController::class, 'delete']); //add middleware to ensure only superadmin can delete
 
     // Service Method
-    Route::get('get-service-method/{hours}/{serviceId}/{group}', [Administrator\ServiceMethodController::class, 'get_service_method_cost']);
+    Route::get('service-method-cost/{hours}/{serviceId}/{group}', [Administrator\ServiceMethodController::class, 'get_service_method_cost']);
     Route::post('service-method', [Administrator\ServiceMethodController::class, 'store']);
     Route::delete('service-method/{serviceMethod}', [Administrator\ServiceMethodController::class, 'delete']);
     Route::get('all-service-methods/{service}', [Administrator\ServiceMethodController::class, 'index']);
