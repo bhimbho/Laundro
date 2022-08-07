@@ -28,7 +28,7 @@ Route::middleware(['auth:sanctum', 'isTopLevelAdmin'])->group(function () {
 
     // Service Method
     Route::get('get-service-method/{hours}/{serviceId}/{group}', [Administrator\ServiceMethodController::class, 'get_service_method_cost']);
-    Route::post('store-service-method', [Administrator\ServiceMethodController::class, 'store']);
+    Route::post('service-method', [Administrator\ServiceMethodController::class, 'store']);
     Route::delete('service-method/{serviceMethod}', [Administrator\ServiceMethodController::class, 'delete']);
     Route::get('all-service-methods', [Administrator\ServiceMethodController::class, 'index']);
     Route::get('deleted-service-methods', [Administrator\ServiceMethodController::class, 'deleted']);
