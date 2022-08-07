@@ -37,6 +37,7 @@ Route::middleware(['auth:sanctum', 'isTopLevelAdmin'])->group(function () {
     Route::post('service-cost', [Administrator\ServiceCostController::class, 'store']);
     Route::delete('service-cost/{serviceCost}', [Administrator\ServiceCostController::class, 'delete']);
     Route::get('service-cost/{service}/{attire}', [Administrator\ServiceCostController::class, 'get_service_cost']);
+    Route::get('service-cost/{service}', [Administrator\ServiceCostController::class, 'index']);
 
     //group
     Route::get('groups' , function(){

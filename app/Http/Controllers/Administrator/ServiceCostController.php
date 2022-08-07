@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Administrator;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ServiceCostRequest;
 use App\Http\Service\ServiceCostService;
+use App\Models\Service;
 use App\Models\ServiceCost;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,10 @@ class ServiceCostController extends Controller
     public function __construct(ServiceCostService $serviceCostService)
     {
         $this->serviceCostService = $serviceCostService;
+    }
+
+    public function index(Service $service) {
+        return ServiceCost::with('services')->where('service_id', $service->id)->latest()->paginate(10);
     }
 
     public function get_service_cost($service, $attire) {
