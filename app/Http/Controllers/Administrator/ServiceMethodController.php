@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Administrator;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ServiceMethodStoreRequest;
 use App\Http\Service\ServiceMethodService;
+use App\Models\Service;
 use App\Models\ServiceMethod;
 use App\Traits\QuickResponseTrait;
 
@@ -36,12 +37,12 @@ class ServiceMethodController extends Controller
         return $this->makeSuccessResponse();
     }
 
-    public function index() {
-        return ServiceMethod::with('services')->latest()->paginate(10);
+    public function index(Service $service) {
+        return ServiceMethod::with('services')->where('service_id', $service->id)->latest()->paginate(10);
     }
 
-    public function deleted() {
-        return ServiceMethod::with('services')->onlyTrashed()->latest()->paginate(10);
+    public function deleted(Service $service) {
+        return ServiceMethod::with('services')->where('service_id', $service->id)->onlyTrashed()->latest()->paginate(10);
     }
 
     public function delete(ServiceMethod $serviceMethod) {
