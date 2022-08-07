@@ -20,7 +20,7 @@ class ServiceCostController extends Controller
     }
 
     public function index(Service $service) {
-        return ServiceCost::with('service')->where('service_id', $service->id)->latest()->paginate(10);
+        return ServiceCost::with('service', 'attire_types')->where('service_id', $service->id)->latest()->paginate(10);
     }
 
     public function get_service_cost($service, $attire) {
