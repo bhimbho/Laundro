@@ -30,7 +30,16 @@ class TransactionController extends Controller
      */
     public function show($transactionID)
     {
-        $transaction = Transaction::with('bookings.attireType', 'bookings.service', 'administrator', 'customer')->firstOrFail();
+        $transaction = Transaction::with('bookings.attireType', 'bookings.service', 'delivery_method', 'administrator', 'customer')->where('transactions.id', $transactionID)->get();
+        foreach ($transaction as $bookings) {
+            foreach ($bookings->bookings as $booking) {
+                $booking->service->load([
+                    'service_costs' => function ($query) use ($booking) {
+                        $query->where('attire_type_id', $booking->attireType->id);
+                    },
+                ]);
+            }
+        }
 
         return $this->makeJsonResponse([
             'data' => $transaction

@@ -35,9 +35,11 @@ class BookingRecord extends Model
     public function service_method() {
         return $this->belongsTo(ServiceMethod::class, 'service_method_id');
     }
-
+    
     public function transaction()
     {
         return $this->belongsTo(Transaction::class);
     }
+
+
 }

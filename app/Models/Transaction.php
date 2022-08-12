@@ -45,4 +45,14 @@ class Transaction extends Model
     {
         return $this->belongsTo(Customer::class);
     }
+
+    /**
+     * Get the customer that owns the Transaction
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function delivery_method()
+    {
+        return $this->belongsTo(DeliveryMethod::class);
+    }
 }
