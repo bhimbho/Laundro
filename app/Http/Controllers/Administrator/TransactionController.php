@@ -23,15 +23,13 @@ class TransactionController extends Controller
             foreach ($bookings->bookings as $booking) {
                 $booking->service->load([
                     'service_cost' => function ($query) use ($booking) {
-                        $query->where('attire_type_id', $booking->attireType->id);
+                        $query->where([['attire_type_id', $booking->attireType->id], ['service_id', $booking->service_id]])->withTrashed();
                     },
                 ]);
             }
-            // $total += $perBookingTotal + $bookings->delivery_method->cost;
-            // $bookings->total = $total;
         }
 
-        return $booking->service->service_cost;
+       
         foreach ($transactions->items() as $bookings) {
             foreach ($bookings->bookings as $booking) {
                 $perBookingTotal = $booking->perBookingTotal = (($booking->service->service_cost->cost + ($booking->service_method !== null ? $booking->service_method->cost : 0)) * $booking->quantity);
