@@ -17,6 +17,10 @@ class BookingRecord extends Model
 
     protected $fillable = ['transaction_id', 'attire_type_id', 'service_id', 'quantity', 'status', 'service_method_id', 'expected_collection_date'];
 
+    protected $casts = [
+        'expected_collection_date' => 'datetime:D d-M-Y'
+    ];
+
     /**
      * Get the user associated with the BookingRecord
      *
