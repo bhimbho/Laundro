@@ -37,6 +37,13 @@ class TransactionController extends Controller
             $total += $perBookingTotal + $bookings->delivery_method->cost;
             $bookings->total = $total;
         }
+
+        $hasSpecialService = $transactions->filter(function($transaction) {
+            return $transaction->bookings->filter(function ($booking) {
+                return $booking->service_method !== null;
+            })->count();
+        })->count() > 0;
+        $transactions->add(['hasSpecialService' => $hasSpecialService]);
         
 
         return $this->makeJsonResponse([
