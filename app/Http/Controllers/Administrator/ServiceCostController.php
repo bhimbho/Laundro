@@ -60,6 +60,6 @@ class ServiceCostController extends Controller
 
     public function delete(ServiceCost $serviceCost) {
         $serviceCost->delete();
-        $this->makeDeletedResponse();
+        return $this->makeDeletedResponse();
     }
 }
