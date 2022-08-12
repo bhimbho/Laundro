@@ -16,6 +16,11 @@ class Transaction extends Model
     public $incrementing = false;
 
     protected $fillable = ['customer_id', 'customer_name', 'customer_phone', 'customer_email', 'tag_no', 'payment_type', 'authorised_by', 'delivery_method_id', 'address'];
+
+    protected $casts = [
+        'created_at' => 'datetime:D d-M-Y'
+    ];
+
     /**
      * Get all of the bookings for the Transaction
      *
