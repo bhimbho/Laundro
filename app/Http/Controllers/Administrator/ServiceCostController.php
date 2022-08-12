@@ -7,9 +7,11 @@ use App\Http\Requests\ServiceCostRequest;
 use App\Http\Service\ServiceCostService;
 use App\Models\Service;
 use App\Models\ServiceCost;
+use App\Traits\QuickResponseTrait;
 
 class ServiceCostController extends Controller
 {
+    use QuickResponseTrait;
 
     protected ServiceCostService $serviceCostService;
 
