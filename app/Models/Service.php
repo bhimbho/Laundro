@@ -26,4 +26,9 @@ class Service extends Model
     {
         return $this->hasMany(ServiceCost::class, 'service_id');
     }
+
+    public function service_cost()
+    {
+        return $this->hasOne(ServiceCost::class, 'service_id');
+    }
 }

@@ -22,12 +22,18 @@ class TransactionController extends Controller
         foreach ($transactions->items() as $bookings) {
             foreach ($bookings->bookings as $booking) {
                 $booking->service->load([
-                    'service_costs' => function ($query) use ($booking) {
+                    'service_cost' => function ($query) use ($booking) {
                         $query->where('attire_type_id', $booking->attireType->id);
                     },
                 ]);
-                // return ;
-                $perBookingTotal = $booking->perBookingTotal = (($booking->service->service_costs->first()->cost + ($booking->service_method !== null ? $booking->service_method->cost : 0)) * $booking->quantity);
+            }
+            // $total += $perBookingTotal + $bookings->delivery_method->cost;
+            // $bookings->total = $total;
+        }
+
+        foreach ($transactions->items() as $bookings) {
+            foreach ($bookings->bookings as $booking) {
+                $perBookingTotal = $booking->perBookingTotal = (($booking->service->service_cost->cost + ($booking->service_method !== null ? $booking->service_method->cost : 0)) * $booking->quantity);
             }
             $total += $perBookingTotal + $bookings->delivery_method->cost;
             $bookings->total = $total;
@@ -51,7 +57,7 @@ class TransactionController extends Controller
         foreach ($transaction as $bookings) {
             foreach ($bookings->bookings as $booking) {
                 $booking->service->load([
-                    'service_costs' => function ($query) use ($booking) {
+                    'service_cost' => function ($query) use ($booking) {
                         $query->where('attire_type_id', $booking->attireType->id);
                     },
                 ]);
