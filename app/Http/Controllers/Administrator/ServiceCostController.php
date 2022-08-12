@@ -7,7 +7,6 @@ use App\Http\Requests\ServiceCostRequest;
 use App\Http\Service\ServiceCostService;
 use App\Models\Service;
 use App\Models\ServiceCost;
-use Illuminate\Http\Request;
 
 class ServiceCostController extends Controller
 {
@@ -36,7 +35,7 @@ class ServiceCostController extends Controller
 
     public function store(ServiceCostRequest $request) {
         $validated = $request->validated();
-        $serviceCostExist = ServiceCost::where([['attire_type_id', $validated['attire_type_id'], ['service_id', $validated['service_id']]]])->count() > 0;
+        $serviceCostExist = ServiceCost::where([['attire_type_id', $validated['attire_type_id']], ['service_id', $validated['service_id']]])->count() > 0;
         if($serviceCostExist) {
             return $this->makeCustomErrorResponse([
                 'error' => 'similar record already exist, a delete is advisable if record is considered redundant'
