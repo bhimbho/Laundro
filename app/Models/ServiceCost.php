@@ -24,7 +24,7 @@ class ServiceCost extends Model
      */
     public function attire_types()
     {
-        return $this->belongsTo(AttireType::class);
+        return $this->belongsTo(AttireType::class, 'attire_type_id');
     }
 
     /**
