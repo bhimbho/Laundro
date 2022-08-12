@@ -16,9 +16,26 @@ class TransactionController extends Controller
      */
     public function index()
     {
-       
+        $total = 0;
+        $perBookingTotal = 0;
+        $transactions = Transaction::with('bookings.attireType', 'bookings.service', 'bookings.service_method', 'delivery_method', 'administrator', 'customer')->paginate(20);
+        foreach ($transactions->items() as $bookings) {
+            foreach ($bookings->bookings as $booking) {
+                $booking->service->load([
+                    'service_costs' => function ($query) use ($booking) {
+                        $query->where('attire_type_id', $booking->attireType->id);
+                    },
+                ]);
+                // return ;
+                $perBookingTotal = $booking->perBookingTotal = (($booking->service->service_costs[0]->cost + ($booking->service_method !== null ? $booking->service_method->cost : 0)) * $booking->quantity);
+            }
+            $total += $perBookingTotal + $bookings->delivery_method->cost;
+            $bookings->total = $total;
+        }
+        
+
         return $this->makeJsonResponse([
-            'data' =>  Transaction::with('customer')->paginate(20)
+            'data' =>  $transactions
         ], 200);
     }
 
@@ -30,7 +47,7 @@ class TransactionController extends Controller
      */
     public function show($transactionID)
     {
-        $transaction = Transaction::with('bookings.attireType', 'bookings.service', 'delivery_method', 'administrator', 'customer')->where('transactions.id', $transactionID)->get();
+        $transaction = Transaction::with('bookings.attireType', 'bookings.service', 'booking.service_method', 'delivery_method', 'administrator', 'customer')->where('transactions.id', $transactionID)->get();
         foreach ($transaction as $bookings) {
             foreach ($bookings->bookings as $booking) {
                 $booking->service->load([
