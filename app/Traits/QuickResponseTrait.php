@@ -43,15 +43,15 @@ trait QuickResponseTrait {
 
     public function makeCustomErrorResponse ($text) {
         return response()->json(
-            ['message' => $text],
-            201
+            ['error' => $text],
+            403
         );
     }
 
     public function makeFailedResponse ($text) {
         return response()->json(
             ['message' => $text],
-            404
+            403
         );
     }
 }

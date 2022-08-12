@@ -31,7 +31,7 @@ class ServiceCostController extends Controller
                 'data' => $cost
             ],201);
         } catch (\Throwable $th) {
-           return $this->makeCustomErrorResponse('A cost is not associated with this attire and service. Contact Administrator to fill in a cost');
+           return $this->makeCustomErrorResponse('No Price associated with this attire and service. Notify Administrator be proceeding');
         }
     }
 
@@ -39,9 +39,7 @@ class ServiceCostController extends Controller
         $validated = $request->validated();
         $serviceCostExist = ServiceCost::where([['attire_type_id', $validated['attire_type_id']], ['service_id', $validated['service_id']]])->count() > 0;
         if($serviceCostExist) {
-            return $this->makeCustomErrorResponse([
-                'error' => 'similar record already exist, a delete is advisable if record is considered redundant'
-            ]);
+            return $this->makeCustomErrorResponse('similar record already exist, a delete is advisable if record is considered redundant');
         }
         ServiceCost::create($validated);
         return $this->makeSuccessResponse();
