@@ -31,7 +31,7 @@ class ServiceCostController extends Controller
                 'data' => $cost
             ],201);
         } catch (\Throwable $th) {
-           return $this->makeCustomErrorResponse('No Price associated with this attire and service. Notify Administrator be proceeding');
+           return $this->makeCustomErrorResponse('No Price associated with this attire and service. Notify Administrator before you proceeding');
         }
     }
 

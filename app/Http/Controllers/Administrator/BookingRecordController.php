@@ -36,11 +36,11 @@ class BookingRecordController extends Controller
     public function store(BookingStoreRequest $request)
     {
         $validated = $request->validated();
-        try {
+        // try {
             $this->bookingRecordService->process_booking($validated);
-        } catch (\Throwable $th) {
-            return $this->makeFailedResponse('Record Cannot be created');
-        }
+        // } catch (\Throwable $th) {
+        //     return $this->makeFailedResponse('Record Cannot be created');
+        // }
         return $this->makeSuccessResponse();
     }
 
