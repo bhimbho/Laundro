@@ -30,6 +30,7 @@ class BookingStoreRequest extends FormRequest
             'bookings.*.service_id' => 'required|uuid|exists:services,id',
             'bookings.*.quantity' => 'required|integer',
             'bookings.*.service_hours' => 'required|in:6,12,24,48',
+            'bookings.*.service_method_id' => 'uuid|exists:service_methods,id|nullable',
             'customer_id' => 'uuid|required_without:customer_name|exists:customers,id',
             'customer_name' => 'required_without:customer_id|string',
             'customer_phone' => 'string|required_without:customer_id|required_with:customer_name',

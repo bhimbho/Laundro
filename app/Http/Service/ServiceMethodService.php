@@ -10,6 +10,10 @@ class ServiceMethodService {
         return $service ?: null;
     }
 
+    public function getServiceMethod($id) {
+        return ServiceMethod::find($id);
+    }
+
     public function storeServiceMethod($validated) {
         return ServiceMethod::create($validated);
     }

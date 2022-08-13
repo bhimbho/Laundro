@@ -31,10 +31,8 @@ class BookingRecordService
 
     public function store($booking, $transaction)
     {
-        $serviceMethod = $this->serviceMethodService->getServiceMethodCost(
-            $booking['service_hours'], 
-            $booking['service_id'], 
-            $this->attireTypeService->getAttire($booking['attire_type_id'])->group
+        $serviceMethod = $this->serviceMethodService->getServiceMethod(
+            $booking['service_method_id'], 
         );
         BookingRecord::create([
             'transaction_id' => $transaction->id,
