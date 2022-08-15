@@ -39,9 +39,10 @@ class TransactionController extends Controller
         foreach ($transactions->items() as $bookings) {
             foreach ($bookings->bookings as $booking) {
                 $perBookingTotal = $booking->perBookingTotal = (($booking->service->service_cost->cost + ($booking->service_method !== null ? $booking->service_method->cost : 0)) * $booking->quantity);
+                $total += $booking->perBookingTotal;
             }
-            $total += ($perBookingTotal + $bookings->delivery_method->cost);
-            $bookings->total = $total;
+            // $total += ($perBookingTotal + $bookings->delivery_method->cost);
+            $bookings->total = $total + $bookings->delivery_method->cost;
         }
 
         // $hasSpecialService = $transactions->filter(function($transaction) {
