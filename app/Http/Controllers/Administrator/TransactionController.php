@@ -40,7 +40,7 @@ class TransactionController extends Controller
             foreach ($bookings->bookings as $booking) {
                 $perBookingTotal = $booking->perBookingTotal = (($booking->service->service_cost->cost + ($booking->service_method !== null ? $booking->service_method->cost : 0)) * $booking->quantity);
             }
-            $total += $perBookingTotal + $bookings->delivery_method->cost;
+            $total += ($perBookingTotal + $bookings->delivery_method->cost);
             $bookings->total = $total;
         }
 
