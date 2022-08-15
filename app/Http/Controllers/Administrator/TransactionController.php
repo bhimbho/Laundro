@@ -66,7 +66,7 @@ class TransactionController extends Controller
      */
     public function show($transactionID)
     {
-        $transaction = Transaction::with('bookings.attireType', 'bookings.service', 'booking.service_method', 'delivery_method', 'administrator', 'customer')->where('transactions.id', $transactionID)->get();
+        $transaction = Transaction::with('bookings.attireType', 'bookings.service', 'bookings.service_method', 'delivery_method', 'administrator', 'customer')->where('transactions.id', $transactionID)->get();
         foreach ($transaction as $bookings) {
             foreach ($bookings->bookings as $booking) {
                 $booking->service->load([
