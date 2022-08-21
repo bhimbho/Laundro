@@ -16,7 +16,7 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transactions = Transaction::with('bookings.attireType', 'bookings.service', 'bookings.service_method', 'delivery_method', 'administrator', 'customer')->paginate(20);
+        $transactions = Transaction::withTrashed('bookings.attireType', 'bookings.service', 'bookings.service_method', 'delivery_method', 'administrator', 'customer')->paginate(20);
         foreach ($transactions->items() as $bookings) {
             $bookings->has_special = false;
             $bookings->total_quantity = 0;
