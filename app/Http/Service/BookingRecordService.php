@@ -41,6 +41,7 @@ class BookingRecordService
             'service_id' =>  $booking['service_id'],
             'quantity' => $booking['quantity'],
             'service_method_id' => ($serviceMethod) ? $serviceMethod->id : null,
+            'service_cost_id' => $booking['service_cost_id'],
             'expected_collection_date' => ($serviceMethod) ? Carbon::now()->addHours($serviceMethod->hours) :
             Carbon::now()->addHours(48),
         ]);

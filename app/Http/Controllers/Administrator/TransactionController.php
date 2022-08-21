@@ -16,27 +16,18 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transactions = Transaction::withTrashed('bookings.attireType', 'bookings.service', 'bookings.service_method', 'delivery_method', 'administrator', 'customer')->paginate(20);
+        $transactions = Transaction::withTrashed('bookings.attireType', 'bookings.service', 'bookings.service_cost', 'bookings.service_method', 'delivery_method', 'administrator', 'customer')->paginate(20);
         foreach ($transactions->items() as $bookings) {
             $bookings->has_special = false;
             $bookings->total_quantity = 0;
+            $total = 0;
             foreach ($bookings->bookings as $booking) {
-                $booking->service->load([
-                    'service_cost' => function ($query) use ($booking) {
-                        $query->where([['attire_type_id', $booking->attireType->id], ['service_id', $booking->service_id]])->withTrashed();
-                    },
-                ]);
                 if ($booking->service_method !== null) {
                     $bookings->has_special = true;
                 }
                 $bookings->total_quantity += $booking->quantity;
-            }
-        }
 
-        foreach ($transactions->items() as $bookings) {
-            $total = 0;
-            foreach ($bookings->bookings as $booking) {
-                $booking->perBookingTotal = ($booking->service->service_cost->cost * $booking->quantity) + 
+                $booking->perBookingTotal = ($booking->service_cost->cost * $booking->quantity) + 
                     ($booking->service_method !== null ? ($booking->service_method->cost * $booking->quantity) : 0);
                 $total += $booking->perBookingTotal;
             }
