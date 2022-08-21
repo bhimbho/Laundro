@@ -16,8 +16,6 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $total = 0;
-        $perBookingTotal = 0;
         $transactions = Transaction::with('bookings.attireType', 'bookings.service', 'bookings.service_method', 'delivery_method', 'administrator', 'customer')->paginate(20);
         foreach ($transactions->items() as $bookings) {
             $bookings->has_special = false;
@@ -35,24 +33,15 @@ class TransactionController extends Controller
             }
         }
 
-       
         foreach ($transactions->items() as $bookings) {
+            $total = 0;
             foreach ($bookings->bookings as $booking) {
-                $perBookingTotal = $booking->perBookingTotal = (($booking->service->service_cost->cost + ($booking->service_method !== null ? $booking->service_method->cost : 0)) * $booking->quantity);
+                $booking->perBookingTotal = ($booking->service->service_cost->cost * $booking->quantity) + 
+                    ($booking->service_method !== null ? ($booking->service_method->cost * $booking->quantity) : 0);
                 $total += $booking->perBookingTotal;
             }
-            // $total += ($perBookingTotal + $bookings->delivery_method->cost);
             $bookings->total = $total + $bookings->delivery_method->cost;
         }
-
-        // $hasSpecialService = $transactions->filter(function($transaction) {
-        //     return $transaction->bookings->filter(function ($booking) {
-        //         return $booking->service_method !== null;
-        //     })->count();
-        // })->count() > 0;
-        // $hasSpecialService = $transactions->hasAny('service_method');
-        // $transactions->add('hello', $hasSpecialService);
-        
 
         return $this->makeJsonResponse([
             'data' =>  $transactions
