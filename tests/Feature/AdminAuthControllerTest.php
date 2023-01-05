@@ -15,12 +15,6 @@ class AdminAuthControllerTest extends TestCase
      *
      * @return void
      */
-    // public function test_example()
-    // {
-    //     $response = $this->post('/');
-
-    //     $response->assertStatus(200);
-    // }
 
     public function test_admin_can_register_new_user() {
         $response = $this->post('/api/admin/register',
@@ -46,10 +40,56 @@ class AdminAuthControllerTest extends TestCase
             'password' => bcrypt('password')
         ]);
         
-        $response = $this->post(route('login'), [
+        $response = $this->postJson(route('login'), [
             'email' => 'johnDoe@gmail.com',
             'password' => 'password'
         ]);
         $response->assertSuccessful();
+    }
+
+    public function test_login_fails_without_email()
+    {
+        Administrator::factory()->create([
+            'email' => 'johnDoe@gmail.com',
+            'password' => bcrypt('password')
+        ]);
+
+        $response = $this->postJson(route('login'), [
+            'email' => '',
+            'password' => 'password'
+        ]);
+
+        $response->assertJsonValidationErrors('email');
+    }
+
+    public function test_validation_tracks_invalid_password()
+    {
+        Administrator::factory()->create([
+            'email' => 'johnDoe@gmail.com',
+            'password' => bcrypt('password')
+        ]);
+
+        $response = $this->postJson(route('login'), [
+            'email' => 'johnDoe@gmail.com',
+            'password' => ''
+        ]);
+
+        $response->assertJsonValidationErrors('password');
+    }
+
+    public function test_login_fails_incorrect_password()
+    {
+        Administrator::factory()->create([
+            'email' => 'johnDoe@gmail.com',
+            'password' => bcrypt('password')
+        ]);
+
+        $response = $this->postJson(route('login'), [
+            'email' => 'johnDoe@gmail.com',
+            'password' => 'passwordx'
+        ]);
+
+        $response->assertStatus(401);
+        $response->assertJsonStructure(['error']);
     }
 }

@@ -3,9 +3,7 @@
 namespace App\Http\Requests\Administrator;
 
 use App\Http\Enum\RoleEnum;
-use App\Models\Administrator;
 use App\Rules\CheckExistMoreThanOnce;
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
 

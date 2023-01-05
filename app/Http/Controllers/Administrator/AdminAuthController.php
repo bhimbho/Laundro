@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Administrator;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Administrator\AdminLoginRequest;
 use App\Http\Requests\Administrator\CreateAdminRequest;
 use App\Models\Administrator;
 use App\Traits\Tokenizer;
@@ -20,8 +21,9 @@ class AdminAuthController extends Controller
      *
      * @return json
      */
-    public function login(Request $request) {
-        $credentials = $request->only(['email', 'password']);
+    public function login(AdminLoginRequest $request) {
+        $data = $request->validated();
+        $credentials = $request->only('email', 'password');
         if (!Auth::guard('web')->attempt($credentials)) {
             return $this->makeJsonResponse(['error' => 'Invalid Login Credentials'], 401);
         }
