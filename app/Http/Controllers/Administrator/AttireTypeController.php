@@ -11,10 +11,8 @@ use App\Http\Service\AttireTypeService;
 class AttireTypeController extends Controller
 {
 
-    public function __construct(AttireTypeService $attireTypeService)
-    {
-        $this->attireTypeService = $attireTypeService;
-    }
+    public function __construct(private AttireTypeService $attireTypeService)
+    {}
     /**
      * Display a listing of the resource.
      *

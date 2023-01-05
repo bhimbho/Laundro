@@ -8,10 +8,12 @@ use App\Models\Administrator;
 use App\Traits\Tokenizer;
 use Illuminate\Http\Request;
 use App\Traits\Administrator\AdministratorQuery;
+use App\Traits\QuickResponseTrait;
+use Illuminate\Support\Facades\Auth;
 
 class AdminAuthController extends Controller
 {
-    use Tokenizer, AdministratorQuery;
+    use Tokenizer, AdministratorQuery, QuickResponseTrait;
 
     /**
      * Admin Login
@@ -20,8 +22,7 @@ class AdminAuthController extends Controller
      */
     public function login(Request $request) {
         $credentials = $request->only(['email', 'password']);
-
-        if (!auth()->attempt($credentials)) {
+        if (!Auth::guard('web')->attempt($credentials)) {
             return $this->makeJsonResponse(['error' => 'Invalid Login Credentials'], 401);
         }
         return $this->makeJsonResponse([

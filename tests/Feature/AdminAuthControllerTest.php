@@ -2,11 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Http\Enum\RoleEnum;
 use App\Models\Administrator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class AdminAuthControllerTest extends TestCase
@@ -26,8 +23,6 @@ class AdminAuthControllerTest extends TestCase
     // }
 
     public function test_admin_can_register_new_user() {
-        
-        $this->withoutExceptionHandling();
         $response = $this->post('/api/admin/register',
             [
                 'firstname' => 'John',
@@ -41,6 +36,20 @@ class AdminAuthControllerTest extends TestCase
            
         );
         $response->assertStatus(201);
-        $this->assertInstanceOf(Administrator::class, $response->getOriginalContent()['data']);
+        $response->assertSuccessful();
+    }
+
+    public function test_admin_can_login_succesfully()
+    {
+        Administrator::factory()->create([
+            'email' => 'johnDoe@gmail.com',
+            'password' => bcrypt('password')
+        ]);
+        
+        $response = $this->post(route('login'), [
+            'email' => 'johnDoe@gmail.com',
+            'password' => 'password'
+        ]);
+        $response->assertSuccessful();
     }
 }

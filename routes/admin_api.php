@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
 use App\Http\Enum\GroupEnum;
 
-Route::post('login', [Administrator\AdminAuthController::class, 'login']);
+Route::post('login', [Administrator\AdminAuthController::class, 'login'])->name('login');
 Route::post('register', [Administrator\AdminAuthController::class, 'register']);
 Route::get('roles', [Controllers\RoleController::class, 'index']);
 
