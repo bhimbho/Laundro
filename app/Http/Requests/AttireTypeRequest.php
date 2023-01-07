@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AttireRequest extends FormRequest
+class AttireTypeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,15 +23,15 @@ class AttireRequest extends FormRequest
      */
     public function rules()
     {
-        $check = [
+        return [
             'title' => 'required|max:150|string',
-            'attire_image' => 'image|required',
+            'attire_image' => 'max:2048|mimes:png,jpg',
             'group' => 'string|required'
         ];
         
-        if ($this->isMethod('patch')) {
-            $check['attire_image'] = ['image'];
-        }
-        return $check;
+        // if ($this->isMethod('patch')) {
+        //     // $check['attire_image'] = ['image'];
+        // }
+        // return $check;
     }
 }

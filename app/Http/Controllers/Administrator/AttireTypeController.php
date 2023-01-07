@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Administrator;
 
 use App\Models\AttireType;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AttireRequest;
+use App\Http\Requests\AttireTypeRequest;
 use App\Http\Resources\AttireTypeResource;
 use App\Http\Service\AttireTypeService;
 
@@ -31,7 +31,7 @@ class AttireTypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AttireRequest $request)
+    public function store(AttireTypeRequest $request)
     {
         $validated = $request->validated();
         $this->attireTypeService->store($validated);
