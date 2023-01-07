@@ -12,7 +12,8 @@ class AttireTypeController extends Controller
 {
 
     public function __construct(private AttireTypeService $attireTypeService)
-    {}
+    {
+    }
     /**
      * Display a listing of the resource.
      *
@@ -59,7 +60,7 @@ class AttireTypeController extends Controller
      * @param  \App\Models\AttireType  $attireType
      * @return \Illuminate\Http\Response
      */
-    public function update(AttireRequest $request, AttireType $attire)
+    public function update(AttireTypeRequest $request, AttireType $attire)
     {
         $validated = $request->validated();
         $this->attireTypeService->update($validated, $attire);       

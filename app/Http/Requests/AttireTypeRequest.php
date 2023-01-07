@@ -23,15 +23,15 @@ class AttireTypeRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'title' => 'required|max:150|string',
-            'attire_image' => 'max:2048|mimes:png,jpg',
-            'group' => 'string|required'
+        $check = [
+            'title' => 'required|max:100|string',
+            'attire_image' => 'required|image',
+            'group' => 'required|string'
         ];
         
-        // if ($this->isMethod('patch')) {
-        //     // $check['attire_image'] = ['image'];
-        // }
-        // return $check;
+        if ($this->isMethod('patch')) {
+            $check['attire_image'] = ['image'];
+        }
+        return $check;
     }
 }

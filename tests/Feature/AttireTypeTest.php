@@ -25,13 +25,12 @@ class AttireTypeTest extends TestCase
             Administrator::factory()->create()
         );
         Storage::fake();
-        $response = $this->postJson(route('attires.store', [
-            'title' => 'xam',
-            'group' => 'kiddies-wears',
-            'attire_image' => UploadedFile::fake()->image('avatar.png')
-        ]));
+        $response = $this->postJson(route('attires.store'), [
+            'title' => 'Women Men2',
+            'attire_image' => UploadedFile::fake()->image('avatar.png'),
+            'group' => 'xxl'
+        ]);
 
-        $response->dd();
         $response->assertSuccessful();
     }
 }
